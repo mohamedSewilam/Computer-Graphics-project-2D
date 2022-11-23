@@ -1,0 +1,298 @@
+#include <GL/gl.h>
+#include <GL/glut.h>
+#include <GL/glu.h>
+#include<stdio.h>
+#include<math.h>
+
+float angle= 0;
+float x,y,i;
+float PI=3.1416;
+
+int refreshmill=1000/60;
+
+
+
+void timer(int)
+{
+    glutPostRedisplay();
+    glutTimerFunc(refreshmill, timer, 0);
+     angle += 0.1;
+
+}
+
+
+void display(void)
+{
+
+    //sky
+    glBegin(GL_QUADS);
+    glColor3ub(30,144,225);
+    glVertex2f(100,-30);
+    glVertex2f(-100,-30);
+    glVertex2f(-100,100);
+    glVertex2f(100,100);
+    glEnd();
+
+
+    //ground
+    glBegin(GL_QUADS);
+    glColor3ub(231,208,162);
+    glVertex2f(-100,-30);
+    glVertex2f(100,-30);
+    glVertex2f(100,-100);
+    glVertex2f(-100,-100);
+    glEnd();
+
+
+    //sun
+    float x, y;
+    int i;
+    GLfloat radius;
+    int triangleAmount =40;
+    GLfloat twicePi = 2.0 * PI;
+
+
+
+        glBegin(GL_TRIANGLE_FAN);
+        glColor3ub(238, 139, 21);
+        x=70; y=70; radius =25;
+        twicePi = 2 * PI;
+        glVertex2f(x, y); // center of circle
+        for(i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+                    x + (radius * cos(i *  twicePi / triangleAmount)) ,
+                    y + (radius * sin(i * twicePi / triangleAmount))
+                  );
+        }
+    glEnd();
+
+
+   //dropping leaf
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+
+        glBegin(GL_TRIANGLES);
+        glColor3ub(80,50,10);
+        glVertex2f(-55,-60-angle);
+        glVertex2f(-50,-55-angle);
+        glVertex2f(-55,-55-angle);
+        glEnd();
+        glPopMatrix();
+
+
+
+
+
+
+
+        //cloud1
+        glMatrixMode(GL_MODELVIEW);
+        glPushMatrix();
+        glBegin(GL_TRIANGLE_FAN);
+        glColor3ub(1, 84, 187);
+        x=-50+angle; y=40; radius =10;
+
+        twicePi = 2.0 * PI;
+
+        glVertex2f(x+angle, y); // center of circle
+        for(i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+                    x + (radius * cos(i *  twicePi / triangleAmount)) +angle,
+                    y + (radius * sin(i * twicePi / triangleAmount))
+                  );
+
+        }
+
+        glEnd();
+
+        glBegin(GL_TRIANGLE_FAN);
+        glColor3ub(1, 84, 187);
+        x=-60+angle; y=40; radius =10;
+
+        twicePi = 2.0 * PI;
+
+        glVertex2f(x+angle, y); // center of circle
+        for(i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+                    x + (radius * cos(i *  twicePi / triangleAmount)) +angle,
+                    y + (radius * sin(i * twicePi / triangleAmount))
+                  );
+
+        }
+        glEnd();
+        glPopMatrix();
+
+        //cloud2
+        glMatrixMode(GL_MODELVIEW);
+        glPushMatrix();
+        glBegin(GL_TRIANGLE_FAN);
+        glColor3ub(1, 84, 187);
+        x=10+angle; y=40; radius =10;
+
+        twicePi = 2.0 * PI;
+
+        glVertex2f(x+angle, y); // center of circle
+        for(i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+                    x + (radius * cos(i *  twicePi / triangleAmount)) +angle,
+                    y + (radius * sin(i * twicePi / triangleAmount))
+                  );
+
+        }
+
+        glEnd();
+
+        glBegin(GL_TRIANGLE_FAN);
+        glColor3ub(1, 84, 187);
+        x=20+angle; y=40; radius =10;
+
+        twicePi = 2.0 * PI;
+
+        glVertex2f(x+angle, y); // center of circle
+        for(i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+                    x + (radius * cos(i *  twicePi / triangleAmount)) +angle,
+                    y + (radius * sin(i * twicePi / triangleAmount))
+                  );
+
+        }
+        glEnd();
+        glPopMatrix();
+
+
+    //tree
+        //stick
+        glBegin(GL_QUADS);
+        glColor3ub(255,127,0);
+        glVertex2f(-60,-80);
+        glVertex2f(-70,-80);
+        glVertex2f(-70,-10);
+        glVertex2f(-60,-10);
+        glEnd();
+
+
+
+        //leaves
+
+        glBegin(GL_TRIANGLE_FAN);
+        glColor3ub(0, 120,0);
+        x=-65; y=-20; radius =20;
+        twicePi = 18 * PI;
+        glVertex2f(x, y); // center of circle
+        for(i = 15; i <= triangleAmount;i++) {
+        glVertex2f(
+                    x + (radius * cos(i *  twicePi / triangleAmount)),
+                    y + (radius * sin(i * twicePi / triangleAmount))
+                  );
+        }
+        glEnd();
+
+
+
+        //pyramids
+        glBegin(GL_TRIANGLES);  //pyramid1
+        glColor3f(0.8,0.3, 0.1);
+        glVertex3f(55, -80, 0);
+        glVertex3f(95, -80, 0);
+        glVertex3f(73, -40, 0);
+        glEnd();
+
+        glBegin(GL_TRIANGLES);  //pyramid2
+        glColor3f(0.8, 0.3, 0.1);
+        glVertex3f(15, -80, 0);
+        glVertex3f(75, -80, 0);
+        glVertex3f(45, -20, 0);
+        glEnd();
+
+        glBegin(GL_TRIANGLES);   //pyramid3
+        glColor3f(0.8, 0.3, 0.1);
+        glVertex3f(-20, -80, 0);
+        glVertex3f(40, -80, 0);
+        glVertex3f(10, -10, 0);
+        glEnd();
+
+        //pyramid3 shade
+
+        glBegin(GL_TRIANGLES);
+        glColor3f(0.7, 0.3, 0);
+        glVertex3f(40, -80, 0);
+        glVertex3f(45, -80, 0);
+        glVertex3f(10, -10, 0);
+        glEnd();
+
+        //pyramid2 shade
+
+
+        glBegin(GL_TRIANGLES);
+        glColor3f(0.7, 0.3, 0);
+        glVertex3f(75, -80, 0);
+        glVertex3f(80, -80, 0);
+        glVertex3f(45, -20, 0);
+        glEnd();
+
+        //pyramid1 shade
+
+        glBegin(GL_TRIANGLES);
+        glColor3f(0.7,0.3, 0.0);
+        glVertex3f(95, -80, 0);
+        glVertex3f(100, -80, 0);
+        glVertex3f(73, -40, 0);
+        glEnd();
+
+
+
+        //rotating leaf
+        glMatrixMode(GL_MODELVIEW);
+        glPushMatrix();
+        glRotatef(angle,0.0f,0.0f,1.0f);
+        glBegin(GL_TRIANGLES);
+        glColor3ub(0, 120, 0);
+        glVertex2f(-30,-15);
+        glVertex2f(-35,-15);
+        glVertex2f(-30,-20);
+        glEnd();
+        glPopMatrix();
+
+
+
+
+
+
+
+
+ glutSwapBuffers();
+}
+
+
+
+void reshape(int w,int h)
+{
+    glViewport(0,0,(GLsizei)w,(GLsizei)h);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(-10,10,-10,10);
+    glMatrixMode(GL_MODELVIEW);
+}
+
+
+void init(void)
+{
+    glClearColor (1.0, 1.0, 1.0, 0.0);
+
+    glLoadIdentity();
+    glOrtho(-100.0, 100.0, -100.0, 100.0, -1.0, 1.0);
+}
+
+int main(int argc,char** argv)
+{
+glutInit(&argc,argv);
+glutInitDisplayMode(GLUT_RGB|GLUT_DOUBLE);
+glutInitWindowSize(1200,800);
+glutInitWindowPosition(200,0);
+glutCreateWindow("20109043");
+glutDisplayFunc(display);
+glutTimerFunc(0,timer,0);
+init ();
+glutMainLoop();
+return 0;
+}
